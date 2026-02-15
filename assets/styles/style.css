@@ -1,10 +1,11 @@
 /**
- * Horae - 时光记忆插件样式
- * 作者: SenriYuki
+ * Horae - Style Plugin Ký Ức Thời Gian
+ * Tác giả: SenriYuki
+ * Dịch thuật: Vietnamese Translation
  */
 
 /* ============================================
-   CSS 变量定义（挂在插件容器上，防止外部美化主题覆盖）
+   Định nghĩa biến CSS (Gắn vào container plugin để tránh bị theme bên ngoài ghi đè)
    ============================================ */
 #horae_drawer,
 .horae-message-panel,
@@ -25,522 +26,375 @@
     --horae-text: #e5e5e5;
     --horae-text-muted: #a0a0a0;
     
-    --horae-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --horae-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     --horae-radius: 8px;
     --horae-radius-sm: 4px;
     
+    --horae-spacing: 12px;
+    --horae-spacing-sm: 8px;
+    
+    font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
     color: var(--horae-text);
 }
 
 /* ============================================
-   抽屉面板样式
+   Ngăn kéo chính (Drawer)
    ============================================ */
-#horae_drawer .drawer-header {
+#horae_drawer_content {
+    background: var(--horae-bg);
+    border-left: 1px solid var(--horae-border);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.drawer-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--horae-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
-    background: linear-gradient(135deg, var(--horae-primary-dark), var(--horae-primary));
-    border-radius: var(--horae-radius) var(--horae-radius) 0 0;
+    background: var(--horae-bg-secondary);
 }
 
-#horae_drawer .horae-title {
+.horae-title {
     font-size: 16px;
-    font-weight: 600;
-    color: white;
+    font-weight: bold;
+    color: var(--horae-primary-light);
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-#horae_drawer .horae-version {
+.horae-version {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.7);
-    background: rgba(0, 0, 0, 0.2);
-    padding: 2px 8px;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--horae-text-muted);
 }
 
-/* 标签页 */
+/* ============================================
+   Hệ thống Tab
+   ============================================ */
 .horae-tabs {
     display: flex;
-    background: var(--horae-bg);
-    border-bottom: 1px solid var(--horae-border);
-    padding: 0 8px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    gap: 2px;
     overflow-x: auto;
+    flex-shrink: 0;
 }
 
 .horae-tab {
     flex: 1;
-    min-width: 60px;
-    padding: 10px 8px;
     background: transparent;
     border: none;
     color: var(--horae-text-muted);
+    padding: 8px 4px;
     cursor: pointer;
+    border-radius: var(--horae-radius-sm);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
     font-size: 11px;
-    transition: all 0.2s ease;
-    border-bottom: 2px solid transparent;
-}
-
-.horae-tab:hover {
-    color: var(--horae-text);
-    background: var(--horae-bg-hover);
-}
-
-.horae-tab.active {
-    color: var(--horae-primary-light);
-    border-bottom-color: var(--horae-primary);
+    transition: all 0.2s;
+    min-width: 50px;
 }
 
 .horae-tab i {
     font-size: 16px;
+    margin-bottom: 2px;
 }
 
-/* 标签页内容 */
+.horae-tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--horae-text);
+}
+
+.horae-tab.active {
+    background: var(--horae-primary);
+    color: #fff;
+}
+
 .horae-tab-contents {
-    background: var(--horae-bg-secondary);
-    max-height: 60vh;
+    flex: 1;
     overflow-y: auto;
+    padding: var(--horae-spacing);
+    position: relative;
 }
 
 .horae-tab-content {
     display: none;
-    padding: 16px;
+    animation: fadeIn 0.2s ease;
 }
 
 .horae-tab-content.active {
     display: block;
 }
 
-/* 状态区块 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   Trang trạng thái (Status)
+   ============================================ */
 .horae-state-section {
-    background: var(--horae-bg);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--horae-border);
     border-radius: var(--horae-radius);
     padding: 12px;
     margin-bottom: 12px;
 }
 
 .horae-section-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
     font-size: 12px;
     color: var(--horae-text-muted);
     margin-bottom: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--horae-border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.horae-section-header i {
-    color: var(--horae-primary-light);
-}
-
-/* 时间显示 */
 .horae-time-display {
     display: flex;
+    justify-content: space-between;
     align-items: baseline;
-    gap: 12px;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 #horae-current-date {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: bold;
     color: var(--horae-primary-light);
 }
 
 #horae-current-time {
-    font-size: 20px;
+    font-size: 18px;
     color: var(--horae-text);
 }
 
-/* 地点显示 */
 .horae-location-display {
-    font-size: 14px;
-    color: var(--horae-text);
-    padding: 8px 0;
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
 }
 
 .horae-atmosphere-badge {
-    display: inline-block;
-    background: var(--horae-accent);
-    color: #000;
     font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 500;
-}
-
-.horae-atmosphere-badge:empty {
-    display: none;
-}
-
-/* 服装列表 */
-.horae-costume-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--horae-accent);
 }
 
 .horae-costume-item {
     display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 8px;
-    background: var(--horae-bg-secondary);
-    border-radius: var(--horae-radius-sm);
+    font-size: 13px;
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+.horae-costume-item:last-child {
+    border-bottom: none;
 }
 
 .horae-costume-char {
-    font-weight: 600;
+    font-weight: bold;
     color: var(--horae-primary-light);
-    min-width: 60px;
+    width: 80px;
+    flex-shrink: 0;
 }
 
 .horae-costume-desc {
-    color: var(--horae-text);
-    font-size: 13px;
+    color: var(--horae-text-muted);
     flex: 1;
 }
 
-/* 物品快速列表 */
 .horae-items-quick {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
 }
 
 .horae-item-tag {
-    display: inline-flex;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--horae-border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    display: flex;
     align-items: center;
     gap: 4px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    padding: 4px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    color: var(--horae-text);
 }
 
 .horae-item-tag .holder {
-    color: var(--horae-accent);
-    font-weight: 500;
+    color: var(--horae-text-muted);
+    font-size: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1px 4px;
+    border-radius: 2px;
+    margin-left: 4px;
 }
 
 .horae-item-tag .location {
     color: var(--horae-text-muted);
-}
-
-/* 操作按钮组 */
-.horae-action-buttons {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.horae-action-buttons.vertical {
-    flex-direction: column;
-}
-
-.horae-action-buttons .menu_button {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-}
-
-.horae-action-buttons .menu_button.danger {
-    background: var(--horae-danger);
-    color: white;
-}
-
-.horae-action-buttons .menu_button.danger:hover {
-    background: #dc2626;
-}
-
-/* 数据管理按钮网格 */
-.horae-data-buttons-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 12px;
-}
-
-.horae-data-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 16px 12px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius);
-    color: var(--horae-text);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    min-height: 70px;
-}
-
-.horae-data-btn i {
-    font-size: 20px;
-    color: var(--horae-primary-light);
-    transition: transform 0.2s ease;
-}
-
-.horae-data-btn span {
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.horae-data-btn:hover {
-    background: var(--horae-bg-hover);
-    border-color: var(--horae-primary);
-    transform: translateY(-2px);
-}
-
-.horae-data-btn:hover i {
-    transform: scale(1.1);
-}
-
-.horae-data-btn:active {
-    transform: translateY(0);
-}
-
-/* 主要按钮样式 */
-.horae-data-btn.primary {
-    background: linear-gradient(135deg, var(--horae-primary-dark), var(--horae-primary));
-    border-color: var(--horae-primary);
-    grid-column: span 2;
-}
-
-.horae-data-btn.primary i {
-    color: white;
-}
-
-.horae-data-btn.primary span {
-    color: white;
-}
-
-.horae-data-btn.primary:hover {
-    background: linear-gradient(135deg, var(--horae-primary), var(--horae-primary-light));
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
-}
-
-/* 危险按钮样式 */
-.horae-data-btn.danger {
-    border-color: rgba(239, 68, 68, 0.3);
-}
-
-.horae-data-btn.danger i {
-    color: var(--horae-danger);
-}
-
-.horae-data-btn.danger:hover {
-    background: rgba(239, 68, 68, 0.15);
-    border-color: var(--horae-danger);
-}
-
-.horae-data-btn.danger:hover i {
-    color: #f87171;
-}
-
-/* ============================================
-   待办事项样式
-   ============================================ */
-.horae-agenda-section {
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--horae-border);
-}
-
-.horae-agenda-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    font-weight: 600;
-    font-size: 13px;
-    color: var(--horae-text);
-}
-
-.horae-agenda-header > span {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.horae-agenda-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.horae-agenda-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 8px 12px;
-    background: var(--horae-bg);
-    border-radius: var(--horae-radius-sm);
-    border-left: 3px solid var(--horae-primary);
-    transition: all 0.15s ease;
-    cursor: pointer;
-}
-
-.horae-agenda-item:hover {
-    background: var(--horae-bg-hover);
-}
-
-.horae-agenda-item:hover .horae-agenda-text {
-    color: var(--horae-primary);
-}
-
-.horae-agenda-body {
-    flex: 1;
-    min-width: 0;
-}
-
-.horae-agenda-meta {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 2px;
-}
-
-.horae-agenda-date {
-    font-size: 11px;
-    color: var(--horae-text-muted);
-    display: flex;
-    align-items: center;
-    gap: 3px;
-}
-
-.horae-agenda-source-ai {
     font-size: 10px;
-    color: var(--horae-primary);
+    font-style: italic;
     opacity: 0.7;
 }
 
-.horae-agenda-source-user {
-    font-size: 10px;
-    color: var(--horae-text-muted);
-    opacity: 0.7;
-}
-
-.horae-agenda-text {
-    font-size: 13px;
-    color: var(--horae-text);
-    word-break: break-word;
-    line-height: 1.4;
-    transition: color 0.15s;
-}
-
-/* 待办多选模式 */
-.horae-agenda-select-check {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.horae-agenda-select-check input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    accent-color: var(--horae-primary);
-}
-
-.horae-agenda-item.selected {
-    background: rgba(var(--horae-primary-rgb, 139, 92, 246), 0.15);
-    border-left-color: var(--horae-accent, #f59e0b);
-}
-
 /* ============================================
-   时间线搜索栏
-   ============================================ */
-.horae-timeline-search-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-    padding: 4px 8px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-}
-
-.horae-timeline-search-row .horae-search-icon {
-    color: var(--horae-text-muted);
-    font-size: 12px;
-    flex-shrink: 0;
-}
-
-.horae-timeline-search-row .horae-search-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: var(--horae-text);
-    font-size: 12px;
-    outline: none;
-    padding: 4px 0;
-}
-
-.horae-timeline-search-row .horae-search-input::placeholder {
-    color: var(--horae-text-muted);
-}
-
-/* ============================================
-   时间线样式
+   Trang dòng thời gian (Timeline)
    ============================================ */
 .horae-timeline-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
-    font-weight: 600;
-    color: var(--horae-text);
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--horae-text-muted);
 }
 
 .horae-timeline-controls {
     display: flex;
-    align-items: center;
     gap: 8px;
 }
 
 .horae-select {
-    padding: 4px 8px;
-    background: var(--horae-bg);
+    background: rgba(0, 0, 0, 0.3);
     border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
+    color: var(--horae-text);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    outline: none;
+}
+
+/* Thanh tìm kiếm */
+.horae-timeline-search-row,
+.horae-items-search-row {
+    position: relative;
+    margin-bottom: 12px;
+}
+.horae-search-icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--horae-text-muted);
+    font-size: 12px;
+    pointer-events: none;
+}
+.horae-search-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--horae-border);
+    border-radius: 4px;
+    padding: 6px 6px 6px 28px;
     color: var(--horae-text);
     font-size: 12px;
-    cursor: pointer;
-}
-
-.horae-select:hover {
-    border-color: var(--horae-primary);
-}
-
-.horae-select:focus {
     outline: none;
+    transition: border-color 0.2s;
+}
+.horae-search-input:focus {
     border-color: var(--horae-primary);
+}
+
+.horae-timeline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.horae-timeline-item {
+    display: flex;
+    gap: 12px;
+    position: relative;
+    padding-left: 12px;
+}
+
+.horae-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: -18px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.horae-timeline-item:last-child::before {
+    display: none;
+}
+
+.horae-timeline-item::after {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--horae-text-muted);
+    border: 2px solid var(--horae-bg);
+}
+
+.horae-timeline-item.important::after {
+    background: var(--horae-accent);
+    width: 10px;
+    height: 10px;
+    left: -4px;
+}
+
+.horae-timeline-item.critical::after {
+    background: var(--horae-danger);
+    width: 12px;
+    height: 12px;
+    left: -5px;
+    box-shadow: 0 0 8px var(--horae-danger);
+}
+
+.horae-timeline-time {
+    width: 50px;
+    flex-shrink: 0;
+    font-size: 11px;
+    color: var(--horae-text-muted);
+    text-align: right;
+    line-height: 1.2;
+}
+
+.horae-timeline-time .date {
+    font-weight: bold;
+    color: var(--horae-text);
+    margin-bottom: 2px;
+}
+
+.horae-timeline-content {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 13px;
 }
 
 .horae-level-badge {
     display: inline-block;
     font-size: 10px;
-    padding: 1px 6px;
-    border-radius: 8px;
+    padding: 1px 4px;
+    border-radius: 3px;
     margin-right: 6px;
-    font-weight: 500;
-    background: var(--horae-bg-hover);
+    background: rgba(255, 255, 255, 0.1);
     color: var(--horae-text-muted);
 }
 
@@ -554,93 +408,33 @@
     color: var(--horae-danger);
 }
 
-.horae-timeline-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.horae-timeline-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px;
-    background: var(--horae-bg);
-    border-radius: var(--horae-radius);
-    border-left: 3px solid var(--horae-primary);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.horae-timeline-item:hover {
-    background: var(--horae-bg-hover);
-    transform: translateX(4px);
-}
-
-.horae-timeline-item.important {
-    border-left-color: var(--horae-accent);
-}
-
-.horae-timeline-item.critical {
-    border-left-color: var(--horae-danger);
-}
-
-.horae-timeline-time {
-    min-width: 60px;
-    font-size: 12px;
-    color: var(--horae-text-muted);
-}
-
-.horae-timeline-time .date {
-    font-weight: 600;
-    color: var(--horae-primary-light);
-}
-
-.horae-timeline-content {
-    flex: 1;
-}
-
 .horae-timeline-summary {
-    font-size: 13px;
+    line-height: 1.4;
     color: var(--horae-text);
-    margin-bottom: 4px;
 }
 
 .horae-timeline-meta {
+    margin-top: 4px;
     font-size: 11px;
     color: var(--horae-text-muted);
-}
-
-/* 空状态 */
-.horae-empty-state {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    color: var(--horae-text-muted);
-    gap: 12px;
-}
-
-.horae-empty-state i {
-    font-size: 40px;
-    opacity: 0.5;
+    justify-content: space-between;
 }
 
 /* ============================================
-   角色页样式
+   Trang nhân vật (Characters)
    ============================================ */
 .horae-subsection {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .horae-subsection-title {
     font-size: 12px;
-    font-weight: 600;
     color: var(--horae-text-muted);
-    margin-bottom: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--horae-border);
+    padding-bottom: 4px;
+    margin-bottom: 12px;
 }
 
 .horae-character-list {
@@ -650,81 +444,75 @@
 }
 
 .horae-character-badge {
-    display: inline-flex;
+    background: rgba(124, 58, 237, 0.2);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    display: flex;
     align-items: center;
     gap: 6px;
-    background: var(--horae-bg);
-    padding: 8px 12px;
-    border-radius: var(--horae-radius);
-    font-size: 13px;
-    color: var(--horae-text);
 }
 
-.horae-character-badge i {
-    color: var(--horae-primary-light);
+/* Kiểu cho nhân vật chính (thẻ nhân vật) */
+.horae-character-badge.main-character {
+    background: rgba(245, 158, 11, 0.2); 
+    border-color: rgba(245, 158, 11, 0.4);
+    color: #ffd580; 
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.1);
 }
 
-/* 好感度列表 */
 .horae-affection-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 8px;
 }
 
 .horae-affection-item {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--horae-border);
+    padding: 8px;
+    border-radius: 6px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    padding: 8px 12px;
-    padding-right: 36px;
-    background: var(--horae-bg);
-    border-radius: var(--horae-radius);
-    position: relative;
+    font-size: 13px;
 }
 
-.horae-affection-item .horae-affection-edit-btn {
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
+.horae-affection-item.main-character {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.05);
+}
+.horae-affection-item .main-char-icon {
+    margin-right: 4px;
+    color: var(--horae-accent);
+    font-size: 10px;
 }
 
 .horae-affection-name {
-    flex: 1;
-    font-size: 13px;
-    color: var(--horae-text);
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 4px;
 }
 
 .horae-affection-value {
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 12px;
+    font-weight: bold;
 }
 
-.horae-affection-value.positive {
-    background: rgba(16, 185, 129, 0.2);
-    color: var(--horae-success);
-}
-
-.horae-affection-value.negative {
-    background: rgba(239, 68, 68, 0.2);
-    color: var(--horae-danger);
-}
-
-.horae-affection-value.neutral {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--horae-text-muted);
-}
+.horae-affection-value.positive { color: var(--horae-success); }
+.horae-affection-value.negative { color: var(--horae-danger); }
+.horae-affection-value.neutral { color: var(--horae-text-muted); }
 
 .horae-affection-level {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--horae-text-muted);
-    min-width: 40px;
-    text-align: right;
+    margin-left: 6px;
 }
 
-/* NPC 列表 */
+/* Danh sách NPC */
 .horae-npc-list {
     display: flex;
     flex-direction: column;
@@ -732,31 +520,184 @@
 }
 
 .horae-npc-item {
-    padding: 10px 12px;
-    background: var(--horae-bg);
-    border-radius: var(--horae-radius);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--horae-border);
+    border-radius: 6px;
+    padding: 10px;
+    transition: background 0.2s;
+}
+
+/* NPC đánh dấu sao */
+.horae-npc-item.favorite {
+    border-color: rgba(245, 158, 11, 0.4);
+    background: rgba(245, 158, 11, 0.05);
+}
+
+/* NPC chính (Ghim) */
+.horae-npc-item.main-character {
+    border-color: rgba(179, 136, 255, 0.4);
+    background: rgba(179, 136, 255, 0.05);
+    box-shadow: 0 0 8px rgba(179, 136, 255, 0.1);
+}
+
+.horae-npc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
 }
 
 .horae-npc-name {
-    font-weight: 600;
-    color: var(--horae-accent);
-    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--horae-text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.horae-npc-name i {
+    font-size: 12px;
+    opacity: 0.8;
 }
 
-.horae-npc-desc {
+/* Icon giới tính NPC */
+.horae-gender-male { color: #60a5fa; }   /* Xanh dương */
+.horae-gender-female { color: #f472b6; } /* Hồng */
+.horae-gender-unknown { color: #9ca3af; } /* Xám */
+.horae-gender-main { color: #b388ff; } /* Tím nhạt cho nhân vật chính */
+
+.horae-npc-actions {
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.horae-npc-item:hover .horae-npc-actions {
+    opacity: 1;
+}
+
+.horae-npc-star {
+    cursor: pointer;
+    color: var(--horae-text-muted);
+}
+.horae-npc-item.favorite .horae-npc-star {
+    color: var(--horae-accent);
+}
+
+.horae-npc-details {
     font-size: 12px;
     color: var(--horae-text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    line-height: 1.4;
+}
+
+.horae-npc-details span {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.horae-npc-appearance { color: #e9d5ff; }
+.horae-npc-personality { color: #bfdbfe; }
+.horae-npc-relationship { color: #fecaca; }
+.horae-npc-extras { color: #99f6e4; font-style: italic; } /* Thông tin mở rộng */
+.horae-npc-note { color: #ddd; border-left: 2px solid var(--horae-primary); }
+
+/* Bộ lọc giới tính NPC */
+.horae-gender-filter {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+    background: rgba(0,0,0,0.2);
+    padding: 4px;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+.horae-gender-btn {
+    border: none;
+    background: transparent;
+    color: var(--horae-text-muted);
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+}
+
+.horae-gender-btn:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--horae-text);
+}
+
+.horae-gender-btn.active {
+    background: var(--horae-primary);
+    color: #fff;
+}
+
+.horae-npc-section-title {
+    font-size: 11px;
+    color: var(--horae-text-muted);
+    margin: 8px 0 4px 0;
+    padding-left: 4px;
+    border-left: 2px solid var(--horae-border);
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.horae-npc-section-divider {
+    height: 1px;
+    background: var(--horae-border);
+    margin: 12px 0;
+    opacity: 0.5;
 }
 
 /* ============================================
-   物品页样式
+   Trang vật phẩm (Items)
    ============================================ */
+.horae-items-toolbar {
+    margin-bottom: 12px;
+}
+
 .horae-items-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
-    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.horae-items-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.horae-icon-btn {
+    background: transparent;
+    border: 1px solid var(--horae-border);
+    color: var(--horae-text-muted);
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.horae-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
     color: var(--horae-text);
 }
 
@@ -767,135 +708,227 @@
 }
 
 .horae-full-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--horae-border);
+    border-radius: 6px;
+    padding: 8px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
-    padding: 12px;
-    background: var(--horae-bg);
-    border-radius: var(--horae-radius);
 }
 
+.horae-full-item.important { border-left: 3px solid var(--horae-accent); }
+.horae-full-item.critical { border-left: 3px solid var(--horae-danger); }
+
 .horae-full-item-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--horae-primary);
-    border-radius: 50%;
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-}
-
-.horae-full-item-icon.horae-item-emoji {
-    background: var(--horae-bg-secondary);
-    font-size: 20px;
 }
 
 .horae-full-item-info {
     flex: 1;
+    min-width: 0;
 }
 
 .horae-full-item-name {
-    font-weight: 600;
-    color: var(--horae-text);
+    font-weight: bold;
     margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
+
+.horae-item-importance {
+    font-size: 10px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: normal;
+}
+.horae-item-importance.important { background: rgba(245, 158, 11, 0.2); color: var(--horae-accent); }
+.horae-item-importance.critical { background: rgba(239, 68, 68, 0.2); color: var(--horae-danger); }
 
 .horae-full-item-location {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--horae-text-muted);
 }
-
 .horae-full-item-location .holder {
-    color: var(--horae-accent);
+    color: var(--horae-primary-light);
+    font-weight: bold;
+}
+
+.horae-full-item-desc {
+    font-size: 12px;
+    color: var(--horae-text);
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.05);
+    opacity: 0.8;
 }
 
 /* ============================================
-   设置页样式
+   Trang cài đặt (Settings)
    ============================================ */
 .horae-settings-section {
-    background: var(--horae-bg);
-    border-radius: var(--horae-radius);
-    padding: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .horae-setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     margin-bottom: 12px;
-}
-
-.horae-setting-item:last-child {
-    margin-bottom: 0;
 }
 
 .horae-setting-item label {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 13px;
-    color: var(--horae-text);
     cursor: pointer;
 }
 
-.horae-setting-item input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--horae-primary);
-}
-
-.horae-setting-item input[type="number"] {
-    width: 60px;
-    padding: 4px 8px;
-    background: var(--horae-bg-secondary);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-    color: var(--horae-text);
-    margin-left: auto;
-}
-
 .horae-setting-hint {
-    display: block;
     font-size: 11px;
     color: var(--horae-text-muted);
-    margin-top: 4px;
     margin-left: 24px;
+    line-height: 1.4;
+    display: block;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.horae-setting-sub-hint {
+    font-size: 11px;
+    color: var(--horae-text-muted);
+    margin-left: 24px;
+    opacity: 0.7;
+}
+
+.horae-data-buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.horae-data-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--horae-border);
+    border-radius: 6px;
+    color: var(--horae-text);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.horae-data-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.horae-data-btn.primary {
+    background: rgba(124, 58, 237, 0.2);
+    border-color: rgba(124, 58, 237, 0.4);
+}
+.horae-data-btn.primary:hover {
+    background: rgba(124, 58, 237, 0.3);
+}
+
+.horae-data-btn.danger {
+    color: var(--horae-danger);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+.horae-data-btn.danger:hover {
+    background: rgba(239, 68, 68, 0.1);
 }
 
 .horae-about {
     text-align: center;
     font-size: 11px;
     color: var(--horae-text-muted);
-    padding-top: 12px;
-    border-top: 1px solid var(--horae-border);
+    margin-top: 32px;
+    opacity: 0.5;
 }
 
 /* ============================================
-   消息面板样式
+   Trạng thái rỗng (Empty State)
+   ============================================ */
+.horae-empty-hint {
+    width: 100%;
+    text-align: center;
+    padding: 16px;
+    font-size: 12px;
+    color: var(--horae-text-muted);
+    font-style: italic;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+
+.horae-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 40px 0;
+    color: var(--horae-text-muted);
+    opacity: 0.5;
+}
+
+.horae-empty-state i {
+    font-size: 32px;
+}
+
+/* ============================================
+   Bảng điều khiển tin nhắn (Message Panel)
    ============================================ */
 .horae-message-panel {
-    margin-top: 8px;
-    border-radius: var(--horae-radius);
-    overflow: hidden;
-    background: var(--horae-bg);
+    margin: 8px 0 16px 0;
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--horae-border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 13px;
+}
+
+/* Đánh dấu tin nhắn đã xử lý */
+.mes.horae-processed {
+    /* position: relative; */
+}
+
+/* Hiệu ứng highlight khi chuyển đến */
+@keyframes horae-highlight-fade {
+    0% { background-color: rgba(124, 58, 237, 0.3); }
+    100% { background-color: transparent; }
+}
+.horae-highlight {
+    animation: horae-highlight-fade 2s ease-out;
 }
 
 .horae-panel-toggle {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 8px 12px;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.03);
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 0.2s;
 }
 
 .horae-panel-toggle:hover {
-    background: var(--horae-bg-hover);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .horae-panel-icon {
     color: var(--horae-primary-light);
-    font-size: 14px;
+    margin-right: 10px;
 }
 
 .horae-panel-summary {
@@ -903,26 +936,22 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 12px;
     color: var(--horae-text-muted);
+    font-size: 12px;
     overflow: hidden;
-}
-
-.horae-summary-time {
-    color: var(--horae-primary-light);
-    font-weight: 500;
-}
-
-.horae-summary-event {
-    color: var(--horae-text);
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .horae-summary-divider {
     color: var(--horae-border);
+}
+
+.horae-summary-event {
+    color: var(--horae-text);
+    font-weight: bold;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .horae-panel-actions {
@@ -934,27 +963,26 @@
     background: transparent;
     border: none;
     color: var(--horae-text-muted);
-    padding: 4px 8px;
     cursor: pointer;
-    border-radius: var(--horae-radius-sm);
-    transition: all 0.2s ease;
+    padding: 4px;
+    border-radius: 4px;
 }
 
 .horae-panel-actions button:hover {
-    background: var(--horae-bg-hover);
-    color: var(--horae-primary-light);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--horae-text);
 }
 
 .horae-panel-content {
     padding: 12px;
-    background: var(--horae-bg-secondary);
     border-top: 1px solid var(--horae-border);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .horae-panel-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
 }
 
 .horae-panel-row {
@@ -965,252 +993,92 @@
 
 .horae-panel-row.full-width {
     flex-direction: column;
+    gap: 6px;
 }
 
 .horae-panel-row label {
-    min-width: 60px;
-    font-size: 12px;
+    width: 80px;
+    flex-shrink: 0;
     color: var(--horae-text-muted);
+    font-size: 12px;
     display: flex;
     align-items: center;
     gap: 6px;
     padding-top: 6px;
 }
 
-.horae-panel-row label i {
-    color: var(--horae-primary-light);
-}
-
 .horae-panel-value {
     flex: 1;
-    display: flex;
-    gap: 8px;
 }
 
-.horae-panel-value input[type="text"] {
-    flex: 1;
-    padding: 6px 10px;
-    background: var(--horae-bg);
+.horae-panel-row input[type="text"],
+.horae-panel-row input[type="number"],
+.horae-panel-row select,
+.horae-panel-row textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
+    border-radius: 4px;
+    padding: 4px 8px;
     color: var(--horae-text);
     font-size: 13px;
 }
 
-.horae-panel-value input[type="text"]:focus {
-    border-color: var(--horae-primary);
-    outline: none;
-}
-
-/* 底部栏合并日期时间输入 */
-.horae-input-datetime {
-    flex: 1 !important;
-    min-width: 100px;
-}
-
-/* 服装/物品编辑器 */
-.horae-costume-editor,
-.horae-items-editor,
-.horae-affection-editor,
-.horae-agenda-editor {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-}
-
+/* Vùng chỉnh sửa (Editor Lists) */
 .horae-editor-row {
     display: flex;
-    gap: 8px;
+    gap: 6px;
+    margin-bottom: 6px;
     align-items: center;
 }
 
 .horae-editor-row input {
-    flex: 1;
-    padding: 6px 10px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-    color: var(--horae-text);
-    font-size: 12px;
+    min-width: 0;
 }
 
-.horae-editor-row .char-input {
-    max-width: 80px;
-}
-
-/* 物品图标输入 */
-.horae-editor-row .item-icon {
-    max-width: 40px;
-    min-width: 40px;
-    text-align: center;
-    font-size: 16px;
-    padding: 4px;
-}
-
-.horae-item-row {
-    flex-wrap: nowrap;
-}
-
-.horae-item-row .item-name {
-    flex: 2;
-}
-
-.horae-item-row .item-importance {
-    width: 70px;
-    min-width: 70px;
-    padding: 4px 6px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-    color: var(--horae-text);
-    font-size: 11px;
-}
-
-.horae-item-row .item-importance option[value="!"] {
-    color: var(--horae-warning);
-}
-
-.horae-item-row .item-importance option[value="!!"] {
-    color: var(--horae-danger);
-}
-
-.horae-item-row .item-holder,
-.horae-item-row .item-location {
-    flex: 1;
-}
-
-/* 物品描述行 */
-.horae-item-desc-row {
-    margin-top: -4px;
-    margin-bottom: 8px;
-    padding-left: 58px;
-}
-
-.horae-item-desc-row .item-description {
-    width: 100%;
-    font-size: 11px;
-    color: var(--horae-text-muted);
-}
+.horae-editor-row .char-input { flex: 1; }
+.horae-editor-row .item-name { flex: 2; }
+.horae-editor-row .item-holder { flex: 1; }
+.horae-editor-row .item-icon { width: 30px !important; text-align: center; }
 
 .horae-editor-row .delete-btn {
+    color: var(--horae-danger);
     background: transparent;
     border: none;
-    color: var(--horae-danger);
     cursor: pointer;
     padding: 4px;
+    opacity: 0.6;
 }
+.horae-editor-row .delete-btn:hover { opacity: 1; }
 
-/* 好感度编辑行 */
-.horae-affection-row {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
-
-.horae-affection-row .affection-char {
-    min-width: 60px;
-    max-width: 100px;
-    font-size: 12px;
-    color: var(--horae-primary-light);
-    font-weight: 500;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.horae-affection-row .affection-char-input {
-    min-width: 60px;
-    max-width: 100px;
-}
-
-.horae-affection-row .affection-delta {
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
-    text-align: center;
-    color: var(--horae-accent);
-}
-
-.horae-affection-row .affection-total {
-    width: 50px;
-    min-width: 50px;
-    max-width: 50px;
-    text-align: center;
-}
-
-.horae-btn-add-costume,
-.horae-btn-add-item,
-.horae-btn-add-affection,
-.horae-btn-add-agenda-row {
-    align-self: flex-start;
-    background: transparent;
-    border: 1px dashed var(--horae-border);
-    color: var(--horae-text-muted);
-    padding: 4px 12px;
-    border-radius: var(--horae-radius-sm);
-    cursor: pointer;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 4px;
-}
-
-.horae-btn-add-costume:hover,
-.horae-btn-add-item:hover,
-.horae-btn-add-affection:hover,
-.horae-btn-add-agenda-row:hover {
-    border-color: var(--horae-primary);
-    color: var(--horae-primary-light);
-}
-
-/* 事件编辑器 */
 .horae-event-editor {
     display: flex;
     gap: 8px;
-    width: 100%;
 }
 
-.horae-event-editor select {
-    padding: 6px 10px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-    color: var(--horae-text);
-    font-size: 12px;
+.horae-input-event-level {
+    width: 100px !important;
 }
 
-.horae-event-editor input {
-    flex: 1;
-    padding: 6px 10px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-    color: var(--horae-text);
-    font-size: 12px;
+.horae-panel-footer {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
 }
 
-/* 重新扫描区域 */
 .horae-panel-rescan {
     margin-top: 12px;
-    padding: 12px;
-    background: var(--horae-bg);
-    border-radius: var(--horae-radius);
-    border: 1px dashed var(--horae-border);
+    padding-top: 12px;
+    border-top: 1px dashed var(--horae-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .horae-rescan-label {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--horae-text-muted);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.horae-rescan-label i {
-    color: var(--horae-primary-light);
 }
 
 .horae-rescan-buttons {
@@ -1218,1095 +1086,31 @@
     gap: 8px;
 }
 
-.horae-rescan-buttons .menu_button {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 8px 12px;
-    font-size: 12px;
-}
-
-.horae-btn-quick-scan {
-    background: var(--horae-bg-secondary) !important;
-    border: 1px solid var(--horae-border) !important;
-}
-
-.horae-btn-quick-scan:hover {
-    background: var(--horae-bg-hover) !important;
-    border-color: var(--horae-primary) !important;
-}
-
-.horae-btn-ai-analyze {
-    background: linear-gradient(135deg, var(--horae-primary-dark), var(--horae-primary)) !important;
-    color: white !important;
-}
-
-.horae-btn-ai-analyze:hover {
-    background: linear-gradient(135deg, var(--horae-primary), var(--horae-primary-light)) !important;
-}
-
-.horae-btn-ai-analyze:disabled {
-    opacity: 0.7;
-    cursor: wait;
-}
-
-/* 面板底部按钮 */
-.horae-panel-footer {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--horae-border);
-}
-
-.horae-panel-footer .menu_button {
-    padding: 6px 12px;
-    font-size: 12px;
-}
-
-.horae-btn-save {
-    background: var(--horae-success) !important;
-    color: white !important;
-}
-
 /* ============================================
-   进度条样式
+   Nút Chỉnh sửa / Menu Chỉnh sửa
    ============================================ */
-.horae-progress-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-}
-
-.horae-progress-container {
-    background: var(--horae-bg);
-    padding: 24px;
-    border-radius: var(--horae-radius);
-    min-width: 300px;
-    text-align: center;
-}
-
-.horae-progress-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--horae-text);
-    margin-bottom: 16px;
-}
-
-.horae-progress-bar {
-    height: 8px;
-    background: var(--horae-bg-secondary);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 8px;
-}
-
-.horae-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--horae-primary), var(--horae-accent));
-    transition: width 0.3s ease;
-}
-
-.horae-progress-text {
-    font-size: 12px;
-    color: var(--horae-text-muted);
-}
-
-/* ============================================
-   响应式调整
-   ============================================ */
-@media (max-width: 768px) {
-    .horae-tabs {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-    }
-    
-    .horae-tab span {
-        display: none;
-    }
-    
-    .horae-tab {
-        min-width: 50px;
-    }
-    
-    .horae-panel-summary {
-        font-size: 11px;
-    }
-    
-    /* 手机端待办删除按钮始终可见 */
-    .horae-agenda-delete {
-        opacity: 1;
-    }
-    
-    /* 手机端数据按钮保持2x2网格但调整大小 */
-    .horae-data-buttons-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-    
-    .horae-data-btn {
-        padding: 12px 8px;
-        min-height: 60px;
-    }
-    
-    .horae-data-btn i {
-        font-size: 18px;
-    }
-    
-    .horae-data-btn span {
-        font-size: 11px;
-    }
-    
-    .horae-data-btn.primary {
-        grid-column: span 2;
-    }
-    
-    .horae-time-display {
-        flex-direction: column;
-        gap: 4px;
-    }
-    
-    #horae-current-date {
-        font-size: 24px;
-    }
-    
-    #horae-current-time {
-        font-size: 16px;
-    }
-    
-    /* 手机端物品编辑器适配 - 换行显示避免横向滚动 */
-    .horae-item-row {
-        flex-wrap: wrap;
-        gap: 6px;
-    }
-    
-    .horae-item-row .item-icon {
-        max-width: 36px;
-        min-width: 36px;
-        order: 1;
-    }
-    
-    .horae-item-row .item-name {
-        flex: 1;
-        min-width: calc(100% - 80px);
-        order: 2;
-    }
-    
-    .horae-item-row .delete-btn {
-        order: 3;
-    }
-    
-    .horae-item-row .item-holder {
-        flex: 1;
-        min-width: 45%;
-        order: 4;
-    }
-    
-    .horae-item-row .item-location {
-        flex: 1;
-        min-width: 45%;
-        order: 5;
-    }
-    
-    .horae-item-row .item-importance {
-        width: 60px;
-        min-width: 60px;
-        order: 6;
-    }
-    
-    /* 手机端物品描述行 */
-    .horae-item-desc-row {
-        padding-left: 0;
-        margin-left: 0;
-    }
-    
-    /* 手机端服装编辑器适配 */
-    .horae-costume-editor .horae-editor-row {
-        flex-wrap: wrap;
-    }
-    
-    .horae-costume-editor .horae-editor-row .char-input {
-        max-width: 80px;
-        flex: 0 0 80px;
-    }
-    
-    .horae-costume-editor .horae-editor-row input:not(.char-input) {
-        flex: 1;
-        min-width: calc(100% - 120px);
-    }
-    
-    /* 手机端面板内容区可滚动 */
-    .horae-panel-content {
-        max-height: 60vh;
-        overflow-y: auto;
-    }
-    
-    /* 手机端底部按钮固定显示 */
-    .horae-panel-footer {
-        position: sticky;
-        bottom: 0;
-        background: var(--horae-bg-secondary);
-        padding: 10px 0;
-        margin: 0 -12px -12px;
-        padding: 10px 12px;
-    }
-    
-    /* 手机端重扫描区域紧凑 */
-    .horae-panel-rescan {
-        padding: 10px;
-    }
-    
-    .horae-rescan-buttons {
-        flex-direction: column;
-        gap: 6px;
-    }
-}
-
-/* ============================================
-   动画
-   ============================================ */
-@keyframes horae-fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.horae-tab-content.active {
-    animation: horae-fade-in 0.2s ease;
-}
-
-.horae-timeline-item {
-    animation: horae-fade-in 0.3s ease;
-}
-
-/* ============================================
-   滚动条样式
-   ============================================ */
-.horae-tab-contents::-webkit-scrollbar,
-.horae-timeline-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.horae-tab-contents::-webkit-scrollbar-track,
-.horae-timeline-list::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.horae-tab-contents::-webkit-scrollbar-thumb,
-.horae-timeline-list::-webkit-scrollbar-thumb {
-    background: var(--horae-border);
-    border-radius: 3px;
-}
-
-.horae-tab-contents::-webkit-scrollbar-thumb:hover,
-.horae-timeline-list::-webkit-scrollbar-thumb:hover {
-    background: var(--horae-primary);
-}
-
-/* ============================================
-   物品重要程度样式
-   ============================================ */
-.horae-items-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.horae-items-toolbar {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.horae-items-toolbar .horae-items-header {
-    margin-bottom: 0;
-}
-
-.horae-items-search-row {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.horae-search-icon {
-    position: absolute;
-    left: 10px;
-    color: var(--horae-text-dim, #666);
-    font-size: 12px;
-    pointer-events: none;
-}
-
-.horae-search-input {
-    width: 100%;
-    background: var(--horae-bg-secondary, #1a1a2e);
-    border: 1px solid var(--horae-border, #333);
-    border-radius: 8px;
-    color: var(--horae-text, #ccc);
-    padding: 7px 12px 7px 32px;
-    font-size: 13px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.horae-search-input:focus {
-    border-color: var(--horae-accent, #b388ff);
-    box-shadow: 0 0 0 2px rgba(179, 136, 255, 0.15);
-}
-
-.horae-search-input::placeholder {
-    color: var(--horae-text-dim, #555);
-    font-size: 12px;
-}
-
-.horae-item-importance {
-    display: inline-block;
-    font-size: 10px;
-    padding: 1px 6px;
-    border-radius: 8px;
-    margin-left: 6px;
-    font-weight: 500;
-}
-
-.horae-item-importance.important {
-    background: rgba(245, 158, 11, 0.2);
-    color: var(--horae-accent);
-}
-
-.horae-item-importance.critical {
-    background: rgba(239, 68, 68, 0.2);
-    color: var(--horae-danger);
-}
-
-.horae-full-item.important {
-    border-left: 3px solid var(--horae-accent);
-}
-
-.horae-full-item.critical {
-    border-left: 3px solid var(--horae-danger);
-}
-
-.horae-full-item.normal {
-    border-left: 3px solid transparent;
-}
-
-/* ============================================
-   NPC 新格式样式
-   ============================================ */
-.horae-npc-name {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 600;
-    color: var(--horae-accent);
-    margin-bottom: 6px;
-}
-
-.horae-npc-name i {
-    color: var(--horae-primary-light);
-}
-
-.horae-npc-details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    font-size: 12px;
-}
-
-.horae-npc-appearance,
-.horae-npc-personality,
-.horae-npc-relationship,
-.horae-npc-legacy {
-    display: inline-flex;
-    align-items: center;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 11px;
-}
-
-.horae-npc-appearance {
-    background: rgba(59, 130, 246, 0.15);
-    color: var(--horae-info);
-}
-
-.horae-npc-appearance::before {
-    content: "外貌: ";
-    opacity: 0.7;
-}
-
-.horae-npc-personality {
-    background: rgba(245, 158, 11, 0.15);
-    color: var(--horae-accent);
-}
-
-.horae-npc-personality::before {
-    content: "性格: ";
-    opacity: 0.7;
-}
-
-.horae-npc-relationship {
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--horae-success);
-}
-
-.horae-npc-relationship::before {
-    content: "关系: ";
-    opacity: 0.7;
-}
-
-.horae-npc-legacy {
-    background: var(--horae-bg-secondary);
-    color: var(--horae-text-muted);
-}
-
-/* NPC 扩展信息标签 */
-.horae-npc-extras {
-    display: inline-flex;
-    align-items: center;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 11px;
-    background: rgba(139, 92, 246, 0.12);
-    color: var(--horae-primary-light);
-}
-
-.horae-npc-extras::before {
-    content: "📋 ";
-    font-size: 10px;
-}
-
-.horae-age-calc {
-    color: var(--horae-accent);
-    font-weight: 600;
-    cursor: help;
-}
-
-/* 底部栏待办事项编辑行 */
-.horae-editor-row.horae-agenda-edit-row input.agenda-date {
-    flex: 0 0 90px !important;
-    max-width: 90px;
-}
-
-.horae-editor-row.horae-agenda-edit-row input.agenda-text {
-    flex: 1;
-    min-width: 0;
-}
-
-.horae-npc-note {
-    display: inline-flex;
-    align-items: center;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 11px;
-    background: rgba(107, 114, 128, 0.12);
-    color: var(--horae-text-muted);
-    font-style: italic;
-}
-
-.horae-npc-note::before {
-    content: "备注: ";
-    opacity: 0.7;
-    font-style: normal;
-}
-
-/* NPC 性别图标颜色 */
-.horae-gender-male {
-    color: #60a5fa !important;
-}
-
-.horae-gender-female {
-    color: #f472b6 !important;
-}
-
-.horae-gender-unknown {
-    color: #9ca3af !important;
-}
-
-.horae-gender-main {
-    color: var(--horae-primary) !important;
-}
-
-/* 性别过滤栏 */
-.horae-gender-filter {
-    display: flex;
-    gap: 4px;
-    padding: 6px 8px;
-    margin-bottom: 8px;
-    background: var(--horae-bg-secondary);
-    border-radius: var(--horae-radius);
-}
-
-.horae-gender-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px 10px;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    color: var(--horae-text-muted);
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    gap: 4px;
-}
-
-.horae-gender-btn:hover {
-    background: rgba(124, 58, 237, 0.1);
-    color: var(--horae-text);
-}
-
-.horae-gender-btn.active {
-    background: var(--horae-primary);
-    color: #fff;
-}
-
-/* NPC 编辑弹窗紧凑行 */
-.horae-edit-field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 8px;
-}
-
-.horae-edit-field-compact {
-    min-width: 0; /* 防止内容溢出 grid */
-}
-
-.horae-edit-field-compact label {
-    font-size: 11px;
-    margin-bottom: 2px;
-    white-space: nowrap;
-}
-
-.horae-edit-field-compact input,
-.horae-edit-field-compact select {
-    width: 100%;
-    min-width: 0;
-    padding: 5px 6px;
-    font-size: 12px;
-    box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-    .horae-edit-field-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-    }
-    
-    .horae-edit-field-compact input,
-    .horae-edit-field-compact select {
-        padding: 6px 8px;
-        font-size: 13px;
-    }
-}
-
-/* ============================================
-   NPC 星标功能样式
-   ============================================ */
-.horae-npc-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
-
-.horae-npc-star {
-    background: transparent;
-    border: none;
-    color: var(--horae-text-muted);
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: var(--horae-radius-sm);
-    transition: all 0.2s ease;
-    font-size: 14px;
-}
-
-.horae-npc-star:hover {
-    background: var(--horae-bg-hover);
-    color: var(--horae-accent);
-    transform: scale(1.1);
-}
-
-.horae-npc-item.favorite .horae-npc-star {
-    color: var(--horae-accent);
-}
-
-.horae-npc-item.favorite {
-    border-left: 3px solid var(--horae-accent);
-    background: rgba(245, 158, 11, 0.05);
-}
-
-/* 角色卡主要角色特殊样式 */
-.horae-npc-item.main-character {
-    border-left: 3px solid var(--horae-primary);
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(124, 58, 237, 0.05));
-}
-
-.horae-npc-item.main-character .horae-npc-name {
-    color: var(--horae-primary-light);
-    font-weight: 600;
-}
-
-.horae-npc-item.main-character .horae-npc-name i {
-    color: var(--horae-primary);
-}
-
-.horae-npc-section.main-character-section .horae-npc-section-title {
-    color: var(--horae-primary-light);
-}
-
-.horae-npc-section.main-character-section .horae-npc-section-title i {
-    color: var(--horae-primary);
-}
-
-/* 好感度列表主角色样式 */
-.horae-affection-item.main-character {
-    border-left: 3px solid var(--horae-primary);
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(124, 58, 237, 0.05));
-    padding-left: 10px;
-}
-
-.horae-affection-item.main-character .horae-affection-name {
-    color: var(--horae-primary-light);
-    font-weight: 600;
-}
-
-.horae-affection-item .main-char-icon {
-    color: var(--horae-primary);
-    font-size: 10px;
-    margin-right: 4px;
-}
-
-/* 在场角色徽章主角色样式 */
-.horae-character-badge.main-character {
-    background: linear-gradient(135deg, var(--horae-primary), var(--horae-primary-light));
-    color: white;
-    font-weight: 600;
-}
-
-.horae-npc-section-title {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--horae-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.horae-npc-section-title i {
-    color: var(--horae-accent);
-}
-
-.horae-npc-section-divider {
-    height: 1px;
-    background: var(--horae-border);
-    margin: 12px 0;
-}
-
-.horae-npc-section {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-/* 好感度分隔线 */
-.horae-affection-divider {
-    height: 1px;
-    background: var(--horae-border);
-    margin: 8px 0;
-}
-
-/* ============================================
-   已删除物品显示
-   ============================================ */
-.horae-deleted-items-display {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 8px 0;
-}
-
-.horae-deleted-item-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 12px;
-    font-size: 12px;
-    color: #f87171;
-}
-
-.horae-deleted-item-tag i {
-    font-size: 10px;
-    opacity: 0.7;
-}
-
-/* ============================================
-   清理无主物品按钮
-   ============================================ */
-.horae-icon-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-    color: var(--horae-text-muted);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.horae-icon-btn:hover {
-    background: var(--horae-bg-hover);
-    color: var(--horae-warning);
-    border-color: var(--horae-warning);
-}
-
-/* ============================================
-   清理无主物品弹窗
-   ============================================ */
-.horae-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10001;
-    backdrop-filter: blur(2px);
-}
-
-.horae-modal-content {
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius);
-    box-shadow: var(--horae-shadow);
-    width: 90%;
-    max-width: 400px;
-    max-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.horae-modal-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 16px;
-    background: linear-gradient(135deg, var(--horae-primary-dark), var(--horae-primary));
-    color: white;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.horae-modal-body {
-    padding: 16px;
-    overflow-y: auto;
-    flex: 1;
-}
-
-.horae-modal-hint {
-    font-size: 12px;
-    color: var(--horae-text-muted);
-    margin-bottom: 12px;
-}
-
-.horae-cleanup-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 40vh;
-    overflow-y: auto;
-}
-
-.horae-cleanup-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    background: var(--horae-bg-secondary);
-    border-radius: var(--horae-radius-sm);
-    cursor: pointer;
-    transition: all 0.15s ease;
-}
-
-.horae-cleanup-item:hover {
-    background: var(--horae-bg-hover);
-}
-
-.horae-cleanup-item input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--horae-primary);
-}
-
-.horae-cleanup-item-icon {
-    font-size: 18px;
-}
-
-.horae-cleanup-item-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.horae-cleanup-item-name {
-    font-size: 13px;
-    color: var(--horae-text);
-}
-
-.horae-cleanup-item-location {
-    font-size: 11px;
-    color: var(--horae-text-muted);
-}
-
-.horae-modal-footer {
-    display: flex;
-    gap: 8px;
-    padding: 12px 16px;
-    background: var(--horae-bg-secondary);
-    border-top: 1px solid var(--horae-border);
-    flex-wrap: wrap;
-}
-
-.horae-modal-footer .menu_button {
-    flex: 1;
-    min-width: 80px;
-    padding: 8px 12px;
-    font-size: 12px;
-}
-
-.horae-modal-footer .menu_button.primary {
-    background: var(--horae-primary);
-    border-color: var(--horae-primary);
-}
-
-.horae-modal-footer .menu_button.danger {
-    background: var(--horae-danger);
-    border-color: var(--horae-danger);
-    color: white;
-}
-
-.horae-modal-footer .menu_button.danger:hover {
-    background: #dc2626;
-    border-color: #dc2626;
-}
-
-/* 高级设置说明样式 */
-.horae-setting-hint {
-    display: block;
-    font-size: 11px;
-    color: var(--horae-text-muted);
-    margin-top: 6px;
-    line-height: 1.5;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: var(--horae-radius-sm);
-    border-left: 2px solid var(--horae-primary-light);
-}
-
-.horae-setting-hint i {
-    color: var(--horae-info);
-    margin-right: 4px;
-}
-
-/* 空列表提示 */
-.horae-cleanup-empty {
-    text-align: center;
-    padding: 24px;
-    color: var(--horae-text-muted);
-}
-
-.horae-cleanup-empty i {
-    font-size: 32px;
-    margin-bottom: 8px;
-    display: block;
-    color: var(--horae-success);
-}
-
-/* ============================================
-   物品多选模式
-   ============================================ */
-.horae-items-hint {
-    font-size: 11px;
-    color: var(--horae-text-muted);
-    padding: 6px 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: var(--horae-radius-sm);
-    margin-bottom: 8px;
-}
-
-.horae-items-hint i {
-    color: var(--horae-primary-light);
-}
-
-.horae-multiselect-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    background: linear-gradient(135deg, var(--horae-primary-dark), var(--horae-primary));
-    border-radius: var(--horae-radius);
-    margin-bottom: 8px;
-    animation: slideDown 0.2s ease;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.horae-multiselect-info {
-    font-size: 13px;
-    color: white;
-    font-weight: 500;
-}
-
-.horae-multiselect-info span {
-    font-weight: 700;
-    color: var(--horae-accent);
-}
-
-.horae-multiselect-actions {
-    display: flex;
-    gap: 6px;
-}
-
-.horae-icon-btn.small {
-    width: 28px;
-    height: 28px;
-    font-size: 12px;
-}
-
-.horae-icon-btn.danger {
-    background: var(--horae-danger);
-    border-color: var(--horae-danger);
-    color: white;
-}
-
-.horae-icon-btn.danger:hover {
-    background: #dc2626;
-    border-color: #dc2626;
-}
-
-/* 物品项选中状态 */
-.horae-full-item {
-    position: relative;
-    transition: all 0.15s ease;
-}
-
-.horae-full-item.selected {
-    background: rgba(124, 58, 237, 0.2) !important;
-    border-left: 3px solid var(--horae-primary);
-}
-
-.horae-item-checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    margin-right: 8px;
-}
-
-.horae-item-checkbox input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--horae-primary);
-    cursor: pointer;
-}
-
-/* 多选模式下物品项可点击 */
-.horae-full-item[data-item-name] {
-    cursor: pointer;
-}
-
-.horae-full-item[data-item-name]:hover {
-    background: var(--horae-bg-hover);
-}
-
-/* 设置子提示 */
-.horae-setting-sub-hint {
-    display: block;
-    font-size: 10px;
-    color: var(--horae-text-muted);
-    margin-top: 4px;
-    padding-left: 22px;
-    opacity: 0.8;
-}
-
-/* ============================================
-   物品描述显示
-   ============================================ */
-.horae-full-item-desc {
-    font-size: 11px;
-    color: var(--horae-text-muted);
-    margin-top: 2px;
-    font-style: italic;
-}
-
-.horae-full-item-desc:before {
-    content: "📝 ";
-}
-
-/* ============================================
-   列表项编辑按钮
-   ============================================ */
-.horae-editable-item {
-    position: relative;
-}
-
 .horae-item-edit-btn {
     position: absolute;
     top: 4px;
     right: 4px;
-    width: 22px;
-    height: 22px;
+    background: rgba(0, 0, 0, 0.4);
+    border: none;
+    color: var(--horae-text-muted);
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--horae-bg-secondary);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-    color: var(--horae-text-muted);
+    font-size: 10px;
+}
+
+.horae-editable-item {
+    position: relative;
     cursor: pointer;
-    opacity: 0;
-    transition: all 0.15s ease;
-    font-size: 11px;
 }
 
 .horae-editable-item:hover .horae-item-edit-btn {
@@ -2316,13 +1120,48 @@
 .horae-item-edit-btn:hover {
     background: var(--horae-primary);
     color: white;
-    border-color: var(--horae-primary);
 }
 
 /* ============================================
-   编辑弹窗
+   Modal
    ============================================ */
-.horae-edit-modal-body {
+.horae-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.horae-modal-content {
+    background: var(--horae-bg);
+    border: 1px solid var(--horae-border);
+    border-radius: var(--horae-radius);
+    width: 400px;
+    max-width: 90%;
+    box-shadow: var(--horae-shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.horae-modal-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--horae-border);
+    font-weight: bold;
+    color: var(--horae-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--horae-bg-secondary);
+}
+
+.horae-modal-body {
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -2331,238 +1170,187 @@
 .horae-edit-field {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+}
+.horae-edit-field-row {
+    display: flex;
+    gap: 12px;
+}
+.horae-edit-field-compact {
+    flex: 1;
 }
 
 .horae-edit-field label {
     font-size: 12px;
     color: var(--horae-text-muted);
-    font-weight: 500;
 }
 
 .horae-edit-field input,
-.horae-edit-field textarea,
-.horae-edit-field select {
-    padding: 8px 10px;
-    background: var(--horae-bg);
+.horae-edit-field select,
+.horae-edit-field textarea {
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
+    border-radius: 4px;
+    padding: 8px;
     color: var(--horae-text);
     font-size: 13px;
+    outline: none;
 }
-
-.horae-edit-field textarea {
-    resize: vertical;
-    min-height: 60px;
-}
-
 .horae-edit-field input:focus,
 .horae-edit-field textarea:focus {
-    outline: none;
     border-color: var(--horae-primary);
 }
 
-/* NPC操作按钮组 */
-.horae-npc-actions {
+.horae-modal-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--horae-border);
     display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-/* 时间线项目编辑按钮位置调整 */
-.horae-timeline-item.horae-editable-item {
-    position: relative;
-    padding-right: 32px;
-}
-
-.horae-timeline-item .horae-item-edit-btn {
-    top: 50%;
-    transform: translateY(-50%);
+    justify-content: flex-end;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================
-   移动端弹窗适配修复
+   Danh sách việc cần làm (Agenda)
    ============================================ */
-@media screen and (max-width: 768px) {
-    .horae-modal {
-        padding: 16px;
-        box-sizing: border-box;
-    }
-    
-    .horae-modal-content {
-        width: 100%;
-        max-width: none;
-        max-height: 85vh;
-        margin: auto;
-    }
-    
-    .horae-modal-body {
-        max-height: 60vh;
-        overflow-y: auto;
-    }
-    
-    .horae-modal-footer {
-        flex-wrap: wrap;
-        gap: 6px;
-    }
-    
-    .horae-modal-footer .menu_button {
-        flex: 1 1 calc(50% - 3px);
-        min-width: calc(50% - 3px);
-        padding: 10px 8px;
-        font-size: 13px;
-    }
-    
-    /* 防止iOS输入时自动缩放 */
-    .horae-modal input,
-    .horae-modal textarea,
-    .horae-modal select {
-        font-size: 16px;
-    }
+.horae-agenda-section {
+    margin-bottom: 20px;
 }
 
-/* ============================================
-   电脑版底部栏物品编辑器宽度优化
-   ============================================ */
-@media screen and (min-width: 769px) {
-    /* 电脑版物品编辑行 */
-    .horae-item-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: nowrap;
-    }
-    
-    .horae-item-row .item-icon {
-        width: 50px;
-        min-width: 50px;
-        max-width: 50px;
-        flex-shrink: 0;
-    }
-    
-    .horae-item-row .item-name {
-        flex: 3;
-        min-width: 120px;
-    }
-    
-    .horae-item-row .item-holder {
-        flex: 2;
-        min-width: 80px;
-    }
-    
-    .horae-item-row .item-location {
-        flex: 2;
-        min-width: 80px;
-    }
-    
-    .horae-item-row .delete-btn {
-        flex-shrink: 0;
-    }
-    
-    /* 电脑版编辑器行通用 */
-    .horae-editor-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: nowrap;
-    }
-    
-    .horae-editor-row input {
-        min-width: 60px;
-    }
-    
-    /* 电脑版服装编辑器 */
-    .horae-costume-editor .horae-editor-row .char-input {
-        width: 100px;
-        min-width: 100px;
-        max-width: 120px;
-        flex-shrink: 0;
-    }
-    
-    .horae-costume-editor .horae-editor-row input:not(.char-input) {
-        flex: 1;
-    }
-}
-
-/* ============================================
-   Excel风格自定义表格
-   ============================================ */
-.horae-custom-tables-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 12px;
-}
-
-.horae-excel-table-container {
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius);
-    overflow: hidden;
-}
-
-/* 表格滚动容器 */
-.horae-excel-table-wrapper {
-    overflow-x: auto;
-    overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100%;
-}
-
-.horae-excel-table-wrapper::-webkit-scrollbar {
-    height: 6px;
-}
-
-.horae-excel-table-wrapper::-webkit-scrollbar-track {
-    background: var(--horae-bg-secondary);
-}
-
-.horae-excel-table-wrapper::-webkit-scrollbar-thumb {
-    background: var(--horae-border);
-    border-radius: 3px;
-}
-
-.horae-excel-table-wrapper::-webkit-scrollbar-thumb:hover {
-    background: var(--horae-text-muted);
-}
-
-.horae-excel-table-header {
+.horae-agenda-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--horae-text-muted);
+}
+
+.horae-agenda-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.horae-agenda-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--horae-border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.horae-agenda-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.horae-agenda-meta {
+    font-size: 11px;
+    color: var(--horae-text-muted);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.horae-agenda-date {
+    background: rgba(0,0,0,0.2);
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+.horae-agenda-source-ai { color: var(--horae-primary-light); }
+.horae-agenda-source-user { color: var(--horae-accent); }
+
+.horae-agenda-text {
+    line-height: 1.4;
+    color: var(--horae-text);
+}
+
+/* Phong cách khi hoàn thành (tùy chọn) */
+.horae-agenda-item.done {
+    opacity: 0.6;
+}
+.horae-agenda-item.done .horae-agenda-text {
+    text-decoration: line-through;
+}
+
+/* Chế độ đa chọn */
+.horae-multiselect-bar {
+    background: var(--horae-primary-dark);
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+}
+
+.horae-multiselect-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.horae-icon-btn.small {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+}
+
+.horae-agenda-item.selected,
+.horae-full-item.selected {
+    border-color: var(--horae-primary);
+    background: rgba(124, 58, 237, 0.1);
+}
+
+.horae-agenda-select-check,
+.horae-item-checkbox {
+    padding-top: 2px;
+}
+
+/* ============================================
+   Bảng Excel tùy chỉnh
+   ============================================ */
+.horae-excel-table-container {
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--horae-border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.horae-excel-table-header {
     background: var(--horae-bg-secondary);
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid var(--horae-border);
 }
 
 .horae-excel-table-title {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     flex: 1;
-}
-
-.horae-excel-table-title i {
-    color: var(--horae-primary-light);
-    font-size: 14px;
 }
 
 .horae-excel-table-title input {
     background: transparent;
     border: none;
-    border-bottom: 1px dashed var(--horae-border);
-    color: var(--horae-primary-light);
-    font-size: 12px;
-    font-weight: 600;
-    padding: 2px 4px;
-    width: 100px;
-    flex: 1;
-    max-width: 150px;
-}
-
-.horae-excel-table-title input:focus {
+    color: var(--horae-text);
+    font-weight: bold;
+    font-size: 13px;
+    width: 100%;
     outline: none;
-    border-bottom-color: var(--horae-primary);
 }
 
 .horae-excel-table-actions {
@@ -2571,137 +1359,79 @@
 }
 
 .horae-excel-table-actions button {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: transparent;
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
+    border: none;
     color: var(--horae-text-muted);
     cursor: pointer;
-    font-size: 11px;
-    transition: all 0.15s ease;
+    padding: 4px;
+    border-radius: 4px;
 }
 
 .horae-excel-table-actions button:hover {
-    background: var(--horae-bg-hover);
+    background: rgba(255,255,255,0.1);
     color: var(--horae-text);
 }
-
 .horae-excel-table-actions button.danger:hover {
     color: var(--horae-danger);
-    border-color: var(--horae-danger);
 }
 
-/* Excel表格主体 */
+.horae-excel-table-wrapper {
+    overflow-x: auto;
+    padding: 4px;
+}
+
 .horae-excel-table {
-    width: max-content;       /* 宽度由内容决定，不强制100% */
-    min-width: 100%;          /* 至少填满容器 */
     border-collapse: collapse;
+    width: 100%;
     font-size: 12px;
-    table-layout: auto;       /* 列宽由内容自适应 */
 }
 
-.horae-excel-table th,
+.horae-excel-table th, 
 .horae-excel-table td {
     border: 1px solid var(--horae-border);
     padding: 0;
-    white-space: nowrap;      /* 内容不换行，撑开列宽 */
-    position: relative;
-}
-
-/* 第一列（行标题）固定定位，滚动时始终可见 */
-.horae-excel-table th:first-child,
-.horae-excel-table td:first-child {
-    position: sticky;
-    left: 0;
-    z-index: 2;
-    background: var(--horae-bg-secondary);
     min-width: 60px;
 }
 
-.horae-excel-table td:first-child {
-    background: var(--horae-bg);
+.horae-excel-table input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: var(--horae-text);
+    padding: 6px 8px;
+    font-size: 12px;
+    outline: none;
+    min-width: 100%;
 }
 
 .horae-excel-table th {
-    background: var(--horae-bg-secondary);
-    font-weight: 500;
-    color: var(--horae-text-muted);
-    cursor: context-menu;
-    user-select: none;
+    background: rgba(255,255,255,0.05);
 }
 
-/* 第一行表头也固定 */
-.horae-excel-table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 3;
-}
-
-/* 左上角单元格最高层级 */
-.horae-excel-table thead th:first-child {
-    z-index: 4;
-}
-
-.horae-excel-table th:hover {
-    background: var(--horae-bg-hover);
-}
-
-.horae-excel-table input {
-    /* 不设 width:100%，让 size 属性决定宽度，单元格自然撑开 */
-    min-width: 50px;
-    padding: 6px 8px;
-    background: transparent;
-    border: none;
-    color: var(--horae-text);
-    font-size: 12px;
-    box-sizing: border-box;
-}
-
-.horae-excel-table input:focus {
-    outline: none;
-    background: rgba(124, 58, 237, 0.1);
-}
-
-.horae-excel-table input::placeholder {
-    color: var(--horae-text-muted);
-    opacity: 0.5;
-}
-
-/* 表格按钮容器 */
-.horae-table-buttons {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-/* 添加表格按钮 */
-.horae-btn-add-table,
-.horae-btn-import-table {
-    flex: 1;
-    min-width: 120px;
-    padding: 12px;
-    background: transparent;
-    border: 2px dashed var(--horae-border);
-    border-radius: var(--horae-radius);
-    color: var(--horae-text-muted);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 13px;
-    transition: all 0.2s ease;
-}
-
-.horae-btn-add-table:hover,
-.horae-btn-import-table:hover {
-    border-color: var(--horae-primary);
+.horae-excel-table th input {
+    font-weight: bold;
+    text-align: center;
     color: var(--horae-primary-light);
-    background: rgba(124, 58, 237, 0.05);
+}
+
+.horae-excel-table td:first-child input {
+    font-weight: bold;
+    color: var(--horae-primary-light);
+}
+
+.horae-table-prompt-row {
+    padding: 8px;
+    border-top: 1px solid var(--horae-border);
+}
+
+.horae-table-prompt-row input {
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--horae-border);
+    border-radius: 4px;
+    padding: 6px;
+    color: var(--horae-text-muted);
+    font-size: 12px;
 }
 
 .horae-custom-tables-empty {
@@ -2718,7 +1448,7 @@
     opacity: 0.5;
 }
 
-/* 右键菜单 */
+/* Menu chuột phải */
 .horae-context-menu {
     position: fixed;
     background: var(--horae-bg);
@@ -2755,28 +1485,33 @@
     margin: 4px 0;
 }
 
-/* 表格提示文字输入框 */
-.horae-table-prompt-row {
-    padding: 8px 12px;
-    border-top: 1px solid var(--horae-border);
-    background: var(--horae-bg-secondary);
+/* Ô nhập liệu gợi ý bảng */
+.horae-table-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
 }
 
-.horae-table-prompt-row input {
-    width: 100%;
-    padding: 6px 8px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-    color: var(--horae-text);
-    font-size: 11px;
-}
-
-.horae-table-prompt-row input:focus {
-    outline: none;
-    border-color: var(--horae-primary);
-}
-
-.horae-table-prompt-row input::placeholder {
+.horae-btn-add-table,
+.horae-btn-import-table {
+    flex: 1;
+    padding: 8px;
+    border: 1px dashed var(--horae-border);
+    background: rgba(255,255,255,0.03);
     color: var(--horae-text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.horae-btn-add-table:hover,
+.horae-btn-import-table:hover {
+    background: rgba(255,255,255,0.08);
+    color: var(--horae-text);
+    border-color: var(--horae-text-muted);
 }
