@@ -1,0 +1,12 @@
+{
+    "display_name": "Horae - Ký Ức Thời Gian",
+    "loading_order": 100,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "assets/styles/style.css",
+    "author": "SenriYuki",
+    "version": "1.0.1",
+    "homePage": "",
+    "auto_update": false
+}
