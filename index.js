@@ -4009,7 +4009,24 @@ jQuery(async () => {
     loadSettings();
     ensureRegexRules();
     
-    $('#extensions-settings-button').after(await getTemplate('drawer'));
+    const template = await getTemplate('drawer');
+    
+    // Tìm nút Mảnh ghép (Extension)
+    const extBtn = $('#extensions-settings-button');
+    // Tìm nút Bánh răng (Cài đặt) - Theme nào cũng có nút này
+    const settingsBtn = $('#user-settings-button');
+
+    // Logic: Nếu nút Mảnh ghép bị ẩn (do theme), thì bám vào nút Cài đặt
+    if (extBtn.length > 0 && extBtn.css('display') !== 'none') {
+        extBtn.after(template);
+    } else if (settingsBtn.length > 0) {
+        settingsBtn.after(template);
+        console.log('[Horae] Đã chèn icon sau nút Cài đặt (Do nút Extension bị ẩn)');
+    } else {
+        // Trường hợp xấu nhất: chèn vào đầu hàng
+        $('.drawer-icon').first().before(template);
+    }
+    // --- KẾT THÚC ĐOẠN CODE SỬA ---
 
     await initDrawer();
     initTabs();
