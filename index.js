@@ -18,7 +18,7 @@ import { calculateRelativeTime, calculateDetailedRelativeTime, formatRelativeTim
 // ============================================
 const EXTENSION_NAME = 'horae';
 const EXTENSION_FOLDER = `third-party/SillyTavern-Horae`;
-const TEMPLATE_PATH = `${EXTENSION_FOLDER}`;
+const TEMPLATE_PATH = `${EXTENSION_FOLDER}/assets/templates`;
 const VERSION = '1.0.0';
 
 // Quy tắc Regex đi kèm (Tự động tiêm vào hệ thống regex gốc của ST)
