@@ -4003,31 +4003,61 @@ function onMessageRendered(messageId) {
 // ============================================
 
 jQuery(async () => {
-    console.log(`[Horae] Bắt đầu tải v${VERSION}...`);
+    console.log(`[Horae] Bắt đầu khởi chạy v${VERSION}...`); // Kiểm tra xem code có chạy không
 
-    await initNavbarFunction();
-    loadSettings();
-    ensureRegexRules();
-    
-    $('#extensions-settings-button').after(await getTemplate('drawer'));
+    try {
+        await initNavbarFunction();
+        loadSettings();
+        ensureRegexRules();
+        
+        // --- BẮT ĐẦU ĐOẠN SỬA LỖI VỊ TRÍ ---
+        const template = await getTemplate('drawer');
+        console.log('[Horae] Đã tải xong Template HTML');
 
-    await initDrawer();
-    initTabs();
-    initSettingsEvents();
-    syncSettingsToUI();
-    
-    horaeManager.init(getContext(), settings);
-    
-    eventSource.on(event_types.CHARACTER_MESSAGE_RENDERED, onMessageReceived);
-    eventSource.on(event_types.CHAT_COMPLETION_PROMPT_READY, onPromptReady);
-    eventSource.on(event_types.CHAT_CHANGED, onChatChanged);
-    eventSource.on(event_types.MESSAGE_RENDERED, onMessageRendered);
-    eventSource.on(event_types.MESSAGE_SWIPED, onMessageRendered); // Sửa lỗi panel biến mất sau khi vuốt
-    eventSource.on(event_types.MESSAGE_DELETED, onMessageDeleted); // Xây dựng lại bảng khi xóa tin nhắn
-    eventSource.on(event_types.MESSAGE_EDITED, onMessageEdited);   // Xây dựng lại bảng khi sửa tin nhắn
-    
-    refreshAllDisplays();
-    
-    isInitialized = true;
-    console.log(`[Horae] v${VERSION} Tải hoàn tất! Tác giả: SenriYuki`);
+        // Cách 1: Tìm nút Extension (Mảnh ghép)
+        let anchor = $('#extensions-settings-button');
+        
+        // Cách 2: Nếu không thấy, tìm nút Cài đặt (User Settings)
+        if (anchor.length === 0 || anchor.css('display') === 'none') {
+            console.log('[Horae] Không thấy nút Extension, thử tìm nút Cài đặt...');
+            anchor = $('#user-settings-button');
+        }
+
+        // Cách 3: Nếu vẫn không thấy, tìm BẤT CỨ icon nào trên thanh menu (Menu bên phải)
+        if (anchor.length === 0) {
+             console.log('[Horae] Không thấy cả nút Cài đặt, tìm icon bất kỳ...');
+             anchor = $('.drawer-icon').last(); // Lấy icon cuối cùng
+        }
+
+        // Cách 4 (Tuyệt vọng): Chèn thẳng vào khung chứa icon
+        if (anchor.length === 0) {
+            console.log('[Horae] Không tìm thấy điểm neo, chèn trực tiếp vào container!');
+            $('#rm_extensions_block').append(template);
+        } else {
+            console.log('[Horae] Đã tìm thấy điểm neo, đang chèn icon...');
+            anchor.after(template);
+        }
+        // --- KẾT THÚC ĐOẠN SỬA LỖI VỊ TRÍ ---
+
+        await initDrawer();
+        initTabs();
+        initSettingsEvents();
+        syncSettingsToUI();
+        
+        horaeManager.init(getContext(), settings);
+        
+        // Đăng ký sự kiện
+        eventSource.on(event_types.CHARACTER_MESSAGE_RENDERED, onMessageReceived);
+        eventSource.on(event_types.CHAT_COMPLETION_PROMPT_READY, onPromptReady);
+        eventSource.on(event_types.CHAT_CHANGED, onChatChanged);
+        eventSource.on(event_types.MESSAGE_RENDERED, onMessageRendered);
+        eventSource.on(event_types.MESSAGE_SWIPED, onMessageRendered);
+        eventSource.on(event_types.MESSAGE_DELETED, onMessageDeleted);
+        eventSource.on(event_types.MESSAGE_EDITED, onMessageEdited);
+
+        console.log('[Horae] Khởi chạy hoàn tất!');
+
+    } catch (err) {
+        console.error('[Horae] LỖI NGHIÊM TRỌNG KHI KHỞI CHẠY:', err);
+    }
 });
